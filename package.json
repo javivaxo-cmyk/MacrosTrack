@@ -1,0 +1,20 @@
+{
+  "name": "macros-track-pwa",
+  "version": "1.0.0",
+  "description": "PWA de seguimiento nutricional, cálculo de macros, recetas y comparativa multiusuario",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "icons": "node generate-png-icons.js"
+  },
+  "keywords": [
+    "pwa",
+    "macros",
+    "fitness",
+    "nutrition",
+    "tracker"
+  ],
+  "author": "javivaxo-cmyk",
+  "license": "MIT"
+}

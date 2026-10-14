@@ -1,0 +1,299 @@
+/* ==========================================================================
+   main.css - MacrosTrack PWA Base Styles, Variables & Responsive Layout
+   ========================================================================== */
+
+:root {
+  /* Paleta Dark Fitness Moderna */
+  --bg-app: #0b0f19;
+  --bg-card: rgba(19, 28, 46, 0.75);
+  --bg-card-hover: rgba(28, 41, 66, 0.85);
+  --bg-card-solid: #131c2e;
+  --bg-elevated: #1e293b;
+  --bg-glass: rgba(15, 23, 42, 0.65);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: #38bdf8;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Colores de Macronutrientes y Métricas */
+  --color-kcal: #10b981;       /* Verde Esmeralda */
+  --color-protein: #38bdf8;    /* Azul Cielo Deportivo */
+  --color-carbs: #fbbf24;      /* Ámbar Energético */
+  --color-fat: #f43f5e;        /* Rosa / Rojo Coral */
+  --color-fiber: #34d399;      /* Menta */
+  --color-water: #06b6d4;      /* Cyan Agua */
+
+  --color-primary: #10b981;
+  --color-primary-hover: #059669;
+  --color-danger: #ef4444;
+
+  /* Espaciados y Radio */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.2);
+
+  --nav-height: 64px;
+  --header-height: 60px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   APP SHELL LAYOUT (Mobile First con Adaptación a Landscape / Desktop)
+   ========================================================================== */
+
+#appShell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Cabecera Superior */
+.app-header {
+  height: var(--header-height);
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.brand-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 4px 12px 4px 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.header-user-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.header-user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Contenido Principal */
+.app-main {
+  flex: 1;
+  padding: 16px 16px calc(var(--nav-height) + var(--safe-bottom) + 20px) 16px;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN (Bottom Bar en Móvil / Thumb-Friendly)
+   ========================================================================== */
+.app-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 50;
+}
+
+.nav-item-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+  flex: 1;
+  max-width: 75px;
+}
+
+.nav-icon {
+  font-size: 1.3rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.nav-item-btn.active {
+  color: var(--color-primary);
+}
+
+.nav-item-btn.active .nav-icon {
+  transform: translateY(-2px) scale(1.1);
+}
+
+.nav-item-btn:active {
+  transform: scale(0.92);
+}
+
+/* ==========================================================================
+   ADAPTACIÓN A PANTALLAS LANDSCAPE Y ESCRITORIO (min-width: 860px)
+   ========================================================================== */
+@media (min-width: 860px) {
+  #appShell {
+    flex-direction: row;
+  }
+
+  .app-nav {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    left: auto;
+    width: 240px;
+    height: 100vh;
+    padding-bottom: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    border-top: none;
+    border-right: 1px solid var(--border-subtle);
+    padding: 24px 14px;
+    gap: 8px;
+  }
+
+  .nav-item-btn {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: none;
+    gap: 14px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .nav-item-btn .nav-label {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .nav-item-btn.active {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--color-primary);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .app-body-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .app-main {
+    padding: 24px 32px 40px 32px;
+  }
+}
